@@ -14,15 +14,16 @@ Front-End Builds (FEB) lets you easily serve remotely-hosted static (JS) applica
 ![](https://camo.githubusercontent.com/979b56c0651251f4cf428ff354990ee167aeaf63/687474703a2f2f63762d73637265656e73686f74732e73332e616d617a6f6e6177732e636f6d2f41646d696e5f323031352d30332d31305f30302d35302d35382e706e67)
 
 Benefits:
-  - JS app can be deployed without redeploying your Rails app
-  - Easily smoke test SHAs, branches and releases in your production environment with query params:
-    http://your-app.com/my-ember-app?branch=new-feature
+
+- JS app can be deployed without redeploying your Rails app
+- Easily smoke test SHAs, branches and releases in your production environment with query params:
+  http://your-app.com/my-ember-app?branch=new-feature
 
 Features:
-  - Admin interface lets you easily view, rollback and activate different app versions
+
+- Admin interface lets you easily view, rollback and activate different app versions
 
 The motivation for this gem came from [Luke Melia's RailsConf2014 talk](http://www.confreaks.com/videos/3324-railsconf-lightning-fast-deployment-of-your-rails-backed-javascript-app).
-
 
 ## Installation
 
@@ -84,7 +85,7 @@ end
 ```
 
 Visit the admin (at whatever URL you mounted the engine above), create a
-new app named `app-name`, and you'll receive  instructions on how to
+new app named `app-name`, and you'll receive instructions on how to
 start pushing builds.
 
 Note:
@@ -107,6 +108,7 @@ bin/rails server
 Visit `/frontends` to access the Admin interface, and visit the `front_end` route, which will initially return 404 Not found since you haven't configured and deployed any front-end builds yet.
 
 ## A note on SSH Keys
+
 At this time only RSA keys are supported for authentication. You can't generate the keys using ssh-add you'll need the use [something like this](https://www.scottbrady91.com/openssl/creating-rsa-keys-using-openssl)
 
 ### Example Next Steps with Heroku and Ember.js
@@ -118,6 +120,11 @@ A common configuration is to deploy your FEB-enabled Rails app to Heroku, and de
 3. Access your Rails app's FEB Admin interface, add an app, and configure a public SSH key that corresponds to the private key you plan on using to sign your Ember.js builds
 4. Deploy your frontend app. If all goes well, it should build the Ember app, push the static assets to S3, then POST to your Rails app. You'll see the build in the Admin interface, and should be able to access your frontend at the `front_end` route you specified.
 
+## Configurations Options
+
+Should you wish to allow deploys from an approved branch only, you may set the following environment variables
+
+`FRONT_END_BUILDS_RESTRICT_DEPLOYS=TRUE` and set the approved branch `FRONT_END_BUILDS_PRODUCTION_BRANCH=the_name_of_your_approved_branch`
 
 ## Development
 
@@ -145,13 +152,14 @@ ember test
 ```
 
 ## Build status
+
 [This gem is built on Travis-CI.](https://travis-ci.org/tedconf/front_end_builds)
 
 ![](https://travis-ci.org/tedconf/front_end_builds.svg?branch=master)
 
 ## TODO
 
-* Create docs site
-* Auto live setting
-* make posts idempotent (i think they are), but dont insert a new row if
+- Create docs site
+- Auto live setting
+- make posts idempotent (i think they are), but dont insert a new row if
   it already exists.
