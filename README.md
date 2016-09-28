@@ -95,6 +95,21 @@ Rails.application.routes.draw do
 end
 ```
 
+## Configurations Options
+
+Should you wish to allow deploys from an approved branch only, you may set the following environment variables
+
+`FRONT_END_BUILDS_RESTRICT_DEPLOYS=TRUE` and set the approved branch `FRONT_END_BUILDS_PRODUCTION_BRANCH=the_name_of_your_approved_branch`
+
+This can be troublesome if you're deploying from TravisCI as builds are always tagged `HEAD`, you can resolve this by adjusting your `.travis.yml`.
+
+```yml
+install:
+- git checkout ${TRAVIS_BRANCH}
+```
+
+This basically just ensures that the branch name is available to `ember-cli-front-end-builds` to tag the deploy.
+
 
 ## Development
 
