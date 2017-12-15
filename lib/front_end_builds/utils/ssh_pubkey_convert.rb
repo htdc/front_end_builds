@@ -69,6 +69,24 @@ module FrontEndBuilds
           (nstr, bytes) = unpack_string(bytes, n)
 
           key = OpenSSL::PKey::RSA.new
+          n = OpenSSL::BN.new(nstr, 2)
+          e = OpenSSL::BN.new(estr, 2)
+          if key.respond_to? :set_key
+            key.set_key(n, e, nil)
+          else
+            key.n = n
+            key.e = e
+          end
+          key
+        elsif keytype == 'ssh-dss'
+          (n, bytes) = unpack_u32(bytes)
+          (pstr, bytes) = unpack_string(bytes, n)
+          (n, bytes) = unpack_u32(bytes)
+          (qstr, bytes) = unpack_string(bytes, n)
+          (n, bytes) = unpack_u32(bytes)
+          (gstr, bytes) = unpack_string(bytes, n)
+          (n, bytes) = unpack_u32(bytes)
+          (pkstr, bytes) = unpack_string(bytes, n)
 
           # support SSL 2
           if Gem::Version.new(OpenSSL::VERSION) < Gem::Version.new('2.0.0')
