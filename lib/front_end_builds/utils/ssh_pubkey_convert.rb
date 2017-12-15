@@ -66,8 +66,14 @@ module FrontEndBuilds
           (nstr, bytes) = unpack_string(bytes, n)
 
           key = OpenSSL::PKey::RSA.new
-          key.n = OpenSSL::BN.new(nstr, 2)
-          key.e = OpenSSL::BN.new(estr, 2)
+          n = OpenSSL::BN.new(nstr, 2)
+          e = OpenSSL::BN.new(estr, 2)
+          if key.respond_to? :set_key
+            key.set_key(n, e, nil)
+          else
+            key.n = n
+            key.e = e
+          end
           key
         elsif keytype == 'ssh-dss'
           (n, bytes) = unpack_u32(bytes)
