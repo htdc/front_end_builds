@@ -7,6 +7,6 @@ export default function(server) {
 
   server.createList('app', 10);
   server.create('host-app', {
-    name: 'hotdoc_rails_backend'
+    name: 'HotDoc'
   });
 }
