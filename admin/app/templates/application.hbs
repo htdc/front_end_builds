@@ -1,1 +1,30 @@
+<PaperToolbar>
+  <PaperToolbarTools>
+    <h2>
+      <LinkTo @route="apps">
+        <strong>
+          {{this.model.friendlyName}}'s
+        </strong>
+        frontend apps
+      </LinkTo>
+    </h2>
+    <span class="flex"></span>
+    <LinkTo @route="apps">
+      <PaperButton @iconButton="true">
+        <PaperTooltip>
+          Apps
+        </PaperTooltip>
+        <PaperIcon @icon="apps" />
+      </PaperButton>
+    </LinkTo>
+    <LinkTo @route="pubkeys">
+      <PaperButton @iconButton="true">
+        <PaperTooltip>
+          Public Keys
+        </PaperTooltip>
+        <PaperIcon @icon="vpn_key" />
+      </PaperButton>
+    </LinkTo>
+  </PaperToolbarTools>
+</PaperToolbar>
 {{outlet}}
