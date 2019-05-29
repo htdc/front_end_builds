@@ -7,7 +7,7 @@ import Build from './build';
 export default class App extends Model {
   @attr('string') name!: string;
   @attr('string') apiKey!: string;
-  @attr('string') locaiton!: string;
+  @attr('string') location!: string;
   @attr('boolean') requireManualActivation!: boolean;
   @not('requireManualActivation') activateNewDeploys!: boolean;
 
