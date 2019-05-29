@@ -24,5 +24,7 @@ export default function() {
   */
   this.get('apps');
   this.get('apps/:id');
-
+  this.get('host-apps/:id', function(schema) {
+    return schema.hostApps.first();
+  })
 }
