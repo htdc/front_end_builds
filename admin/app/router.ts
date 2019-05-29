@@ -6,6 +6,10 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
-Router.map(function() {});
+Router.map(function() {
+  this.route('apps', { path: '/' });
+  this.route('app', { path: '/apps/:app_id'});
+  this.route('pubkeys', { path: '/ssh-keys'});
+});
 
 export default Router;
