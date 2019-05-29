@@ -23,8 +23,6 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
   */
   this.get('apps');
-  this.get('apps/:id', function () {
-    debugger;
-  });
+  this.get('apps/:id');
 
 }
