@@ -8,7 +8,7 @@ export default class HostApp extends  Model {
 
   @computed('name')
   get friendlyName() {
-    return capitalize(this.name.replace('_', ' '));
+    return capitalize(this.name.replace(/_/g, ' '));
   }
 }
 // DO NOT DELETE: this is how TypeScript knows how to look up your models.
