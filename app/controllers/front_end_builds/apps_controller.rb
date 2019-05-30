@@ -5,19 +5,20 @@ module FrontEndBuilds
     before_action :set_app , :only => [:show, :destroy, :update]
 
     def index
-      # this should be the most recent 10 builds for each app
+      apps = App.includes(:recent_builds, :live_build)
 
-      # DO NOT use `App.includes(:recent_builds)`
-      # b/c it mucks up the grouping logic and only gives the most
-      # recent 10 for ALL apps not 10 per app
-      apps = App.all
+      recent_builds = apps.map(&:recent_builds)
+      live_builds = apps.map(&:live_build)
+      builds = recent_builds
+               .push(live_builds)
+               .flat_map(&:to_a)
+               .reject(&:nil?)
+               .uniq
 
-      respond_with_json({
+      respond_with_json(
         apps: apps.map(&:serialize),
-        builds: apps.map(&:recent_builds)
-                  .flat_map(&:to_a)
-                  .map(&:serialize)
-      })
+        builds: builds.map(&:serialize)
+      )
     end
 
     def show
