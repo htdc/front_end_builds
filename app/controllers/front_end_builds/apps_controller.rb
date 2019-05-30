@@ -12,7 +12,7 @@ module FrontEndBuilds
       builds = recent_builds
                .push(live_builds)
                .flat_map(&:to_a)
-               .reject(&:nil?)
+               .compact
                .uniq
 
       respond_with_json(
