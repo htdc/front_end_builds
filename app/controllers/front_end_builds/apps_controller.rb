@@ -5,13 +5,20 @@ module FrontEndBuilds
     before_action :set_app , :only => [:show, :destroy, :update]
 
     def index
-      apps = App.includes(:recent_builds)
-      respond_with_json({
+      apps = App.includes(:recent_builds, :live_build)
+
+      recent_builds = apps.map(&:recent_builds)
+      live_builds = apps.map(&:live_build)
+      builds = recent_builds
+               .push(live_builds)
+               .flat_map(&:to_a)
+               .compact
+               .uniq
+
+      respond_with_json(
         apps: apps.map(&:serialize),
-        builds: apps.map(&:recent_builds)
-                  .flat_map(&:to_a)
-                  .map(&:serialize)
-      })
+        builds: builds.map(&:serialize)
+      )
     end
 
     def show
