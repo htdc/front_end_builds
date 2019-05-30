@@ -48,6 +48,18 @@ module FrontEndBuilds
       end
     end
 
+    describe "many builds" do
+      let(:many_build_app) { create(:front_end_builds_app, name: 'many builds') }
+      let!(:live_build) { create(:front_end_builds_build, :live, :fetched, app: many_build_app)}
+      let!(:many_builds) { create_list(:front_end_builds_build, 100, app: many_build_app) }
+
+      it "should include the live build even it's not most recent" do
+        get :index, format: :json
+        
+        expect(json['builds'].map { | a | a['id'] }).to include(live_build.id)
+      end
+    end
+
     describe 'show' do
       it "should find the requested app" do
         get :show, params: { id: app.id }, format: :json
