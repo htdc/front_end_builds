@@ -10,11 +10,11 @@ module FrontEndBuilds
 
     describe '#recent_builds' do
       it 'should only show the 10 most recent builds' do
-        create_list(:front_end_builds_build, 11, {
+        create_list(:front_end_builds_build, 51, {
           app: app
         })
 
-        expect(app.recent_builds.size).to eq(10)
+        expect(app.recent_builds.size).to eq(50)
       end
 
       it 'should order the builds with the most recent at top' do
