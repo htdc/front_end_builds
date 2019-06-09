@@ -8,7 +8,7 @@
       </text.headline>
     </title.text>
   </card.title>
-  <card.content>
+  <card.content local-class="card-detail">
     {{#if @app.liveBuild}}
       <div class="layout-row flex">
         <div class="layout-column flex">
@@ -35,6 +35,7 @@
           </p>
           <p>
             {{relative-time @app.liveBuild.createdAt}}
+            ({{format-date @app.liveBuild.createdAt}})
           </p>
         </div>
       </div>
@@ -45,11 +46,11 @@
         </em>
       </div>
     {{/if}}
+    <hr>
     <card.actions class="layout-row flex layout-align-space-between">
       <LinkTo
         @route="app"
         @model={{@app}}
-        @tagName="button"
         class="md-default-theme md-button md-ink-ripple"
         type="button"
       >

@@ -1,6 +1,9 @@
-@import "variables";
+@import 'variables';
 @import 'ember-paper';
 
+body {
+  background-color: #eee;
+}
 body > main {
   margin: 20px 250px;
 }
