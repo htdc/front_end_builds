@@ -1,0 +1,49 @@
+<div class="layout-column flex">
+  <div class="layout-row flex layout-align-center"></div>
+  <div class="layout-row flex layout-align-center">
+    <PaperDataTable
+      local-class="paper-table"
+      @sortProp={{this.sortProperty}}
+      @sortDir={{this.sortDirection}} as |table|
+    >
+      <table.head as |head|>
+        <head.column @sortProp="sha">
+          SHA
+        </head.column>
+        <head.column @sortProp="branch">
+          Branch
+        </head.column>
+        <head.column @sortProp="createdAt">
+          Built
+        </head.column>
+        <head.column>
+          Launch
+        </head.column>
+        <head.column>
+          Activate
+        </head.column>
+      </table.head>
+      <table.body as |body|>
+        {{#each this.sortedBuilds as |build|}}
+          <body.row as |row|>
+            <row.cell>
+              {{build.sha}}
+            </row.cell>
+            <row.cell>
+              {{build.branch}}
+            </row.cell>
+            <row.cell>
+              {{format-date build.createdAt}}
+            </row.cell>
+            <row.cell>
+              Launch...
+            </row.cell>
+            <row.cell>
+              Activate
+            </row.cell>
+          </body.row>
+        {{/each}}
+      </table.body>
+    </PaperDataTable>
+  </div>
+</div>
