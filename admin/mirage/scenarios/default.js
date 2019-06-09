@@ -5,8 +5,10 @@ export default function(server) {
     This data will not be loaded in your tests.
   */
 
-  server.createList('app', 10);
+  server.createList('app', 8, 'withLiveBuild');
+
   server.create('host-app', {
-    name: 'HotDoc'
+    name: 'HotDoc',
+    id: 'current'
   });
 }
