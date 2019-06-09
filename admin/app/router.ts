@@ -7,8 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('apps', { path: '/' });
-  this.route('app', { path: '/apps/:app_id'});
+  this.route('apps', { path: '/' }, function () {
+    this.route('show', { path: '/apps/:app_id'});
+    this.route('new');
+  });
   this.route('pubkeys', { path: '/ssh-keys'});
 });
 
