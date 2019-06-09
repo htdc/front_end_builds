@@ -1,5 +1,3 @@
-@value secondary-color, grey-background from 'admin/styles/variables';
-
 .app-card {
   min-width: 360px;
 }
@@ -9,12 +7,12 @@
   padding: 5px 10px;
 }
 
-.green {
-  background-color: secondary-color;
+.active {
+  background-color: paper-color($primary);
 }
 
-.grey {
-  background-color: grey-background;
+.inactive {
+  background-color: paper-color($accent);
   color: black;
 }
 
