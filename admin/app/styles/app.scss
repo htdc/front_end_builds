@@ -1,10 +1,16 @@
 @import 'variables';
 @import 'ember-paper';
-@import 'paper-data-table';
 
 body {
   background-color: #eee;
 }
 body > main {
   margin: 20px 250px;
+}
+
+md-icon {
+  height: 24px;
+  width: 24px;
+  min-height: 0;
+  min-width: 0;
 }
