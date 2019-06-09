@@ -16,7 +16,7 @@
             Branch
           </p>
           <p>
-            branch name
+            {{@app.liveBuild.branch}}
           </p>
         </div>
         <div class="layout-column flex">
@@ -24,7 +24,7 @@
             SHA
           </p>
           <p>
-            abc123
+            {{@app.liveBuild.shortSha}}
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@
             Deployed
           </p>
           <p>
-            some time ago (actual date)
+            {{relative-time @app.liveBuild.createdAt}}
           </p>
         </div>
       </div>
