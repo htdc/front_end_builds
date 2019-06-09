@@ -1,6 +1,6 @@
-import DS from 'ember-data';
+import ActiveModelAdapater from 'active-model-adapter';
 
-export default class ApplicationAdapter extends DS.JSONAPIAdapter  {
+export default class ApplicationAdapter extends ActiveModelAdapater {
 
 }
 
