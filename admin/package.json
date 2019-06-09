@@ -67,6 +67,7 @@
     "faker": "^4.1.0",
     "liquid-fire": "^0.29.5",
     "loader.js": "^4.7.0",
+    "paper-data-table": "^0.1.5",
     "qunit-dom": "^0.8.0",
     "sass": "^1.20.1",
     "typescript": "^3.4.5"
