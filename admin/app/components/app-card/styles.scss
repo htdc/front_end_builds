@@ -1,0 +1,26 @@
+@value secondary-color, grey-background from 'admin/styles/variables';
+
+.app-card {
+  min-width: 360px;
+}
+
+.card-title {
+  color: white;
+}
+
+.green {
+  background-color: secondary-color;
+}
+
+.grey {
+  background-color: grey-background;
+  color: black;
+}
+
+.no-build {
+  height: 90px;
+  line-height: 90px;
+  font-style: normal;
+  font-weight: 500;
+  color: #545353;
+}

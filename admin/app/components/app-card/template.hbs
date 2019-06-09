@@ -1,0 +1,36 @@
+<PaperCard local-class="app-card" as |card|>
+  <card.title local-class="card-title {{this.titleClass}}" as |title|>
+    <title.text>
+      <text.headline>{{@app.name}}</text.headline>
+    </title.text>
+  </card.title>
+  <card.content>
+    {{#if @app.liveBuild}}
+      {{@app.liveBuild.id}}
+            <div class="layout-row flex">
+        <div class="layout-column flex">
+          <p>Branch</p>
+          <p>branch name</p>
+        </div>
+        <div class="layout-column flex">
+          <p>SHA</p>
+          <p>abc123</p>
+        </div>
+      </div>
+      <div class="layout-row flex">
+        <div class="layout-column flex">
+          <p>Deployed</p>
+          <p>
+            some time ago (actual date)
+          </p>
+        </div>
+      </div>
+    {{else}}
+      <div class="layout-row flex layout-align-center-center">
+        <em local-class="no-build">
+          No active build
+        </em>
+      </div>
+    {{/if}}
+  </card.content>
+</PaperCard>
