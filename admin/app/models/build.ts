@@ -18,7 +18,7 @@ export default class Build extends Model {
     if (!liveBuild) {
       return false;
     }
-    return this.id === liveBuild.id;
+    return this.id === liveBuild.get('id');
   }
 
   activate() {

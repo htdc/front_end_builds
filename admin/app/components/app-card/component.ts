@@ -12,7 +12,7 @@ export default class AppCard extends Component<AppArgs> {
   get titleClass() {
     const app = get(this.args, 'app');
     const liveBuild = get(app, 'liveBuild');
-    if (isPresent(liveBuild && liveBuild.id)) {
+    if (isPresent(liveBuild && liveBuild.get('id'))) {
       return 'green';
     }
     return 'grey';
