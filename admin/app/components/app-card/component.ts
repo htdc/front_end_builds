@@ -13,8 +13,8 @@ export default class AppCard extends Component<AppArgs> {
     const app = get(this.args, 'app');
     const liveBuild = get(app, 'liveBuild');
     if (isPresent(liveBuild && liveBuild.get('id'))) {
-      return 'green';
+      return 'active';
     }
-    return 'grey';
+    return 'inactive';
   }
 }
