@@ -46,8 +46,20 @@
       </div>
     {{/if}}
     <card.actions class="layout-row flex layout-align-space-between">
-      <LinkTo @route="app" @model={{@app}} @tagName="button" class="md-default-theme md-button ember-view md-ink-ripple">See builds</LinkTo>
-      <PaperButton @href={{@app.location}} @target="_blank _noreferrer _noopener">
+      <LinkTo
+        @route="app"
+        @model={{@app}}
+        @tagName="button"
+        class="md-default-theme md-button md-ink-ripple"
+        type="button"
+      >
+        See builds
+      </LinkTo>
+      <PaperButton
+        @accent={{true}}
+        @href={{@app.location}}
+        @target="_blank _noreferrer _noopener"
+      >
         Launch app
       </PaperButton>
     </card.actions>
