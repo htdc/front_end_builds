@@ -34,11 +34,13 @@
             line-height: 20px;
             visibility: hidden;
             opacity: 0;
+            transform: rotate(180deg);
           }
           &:hover {
             md-icon {
-              visibility: visible;
+              cursor: pointer;
               opacity: 0.8;
+              visibility: visible;
             }
           }
         }
