@@ -1,0 +1,31 @@
+<PaperCard as |card|>
+  <card.content>
+    <PaperDataTable as |table|>
+      <table.head as |head|>
+        <head.column>Name</head.column>
+        <head.column>Fingerprint</head.column>
+        <head.column>Last Used</head.column>
+        <head.column>Actions</head.column>
+      </table.head>
+      <table.body as |body|>
+
+    {{#each @publicKeys as |pk|}}
+      <body.row as |row|>
+        <row.cell>
+          {{pk.name}}
+        </row.cell>
+        <row.cell>
+          {{pk.fingerprint}}
+        </row.cell>
+        <row.cell>
+          {{format-date pk.lastUsedAt}}
+        </row.cell>
+        <row.cell></row.cell>
+      </body.row>
+
+
+    {{/each}}
+      </table.body>
+    </PaperDataTable>
+  </card.content>
+</PaperCard>
