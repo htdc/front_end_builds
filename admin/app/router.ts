@@ -11,7 +11,7 @@ Router.map(function() {
     this.route('show', { path: '/apps/:app_id'});
     this.route('new');
   });
-  this.route('pubkeys', { path: '/ssh-keys'});
+  this.route('public-keys', { path: '/public-keys'});
 });
 
 export default Router;

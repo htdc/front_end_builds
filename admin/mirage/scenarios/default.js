@@ -6,7 +6,7 @@ export default function(server) {
   */
 
   server.createList('app', 8, 'withLiveBuild');
-
+  server.createList('public-key', 5);
   server.create('host-app', {
     name: 'HotDoc',
     id: 'current'

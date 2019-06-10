@@ -23,6 +23,7 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
   */
   this.get('apps');
+  this.get('public_keys');
   this.post('apps');
   this.get('apps/:id');
   this.get('host_apps/:id', function(schema) {
