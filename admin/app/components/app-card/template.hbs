@@ -2,7 +2,11 @@
   <card.title local-class="card-title {{this.titleClass}}" as |title|>
     <title.text>
       <text.headline>
-        <LinkTo local-class="heading-link" @route="apps.show" @model={{@app.id}}>
+        <LinkTo
+          local-class="heading-link"
+          @route="apps.show"
+          @model={{@app.id}}
+        >
           {{@app.name}}
         </LinkTo>
       </text.headline>
@@ -35,7 +39,9 @@
           </p>
           <p>
             {{relative-time @app.liveBuild.createdAt}}
-            ({{format-date @app.liveBuild.createdAt}})
+            (
+            {{format-date @app.liveBuild.createdAt}}
+            )
           </p>
         </div>
       </div>
