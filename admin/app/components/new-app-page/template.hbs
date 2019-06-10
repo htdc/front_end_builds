@@ -1,0 +1,45 @@
+<PaperCard as |card|>
+  <card.content>
+    <PaperForm as |form|>
+      <h2>
+        New App
+      </h2>
+      <div class="layout-row">
+        <div class="layout-column flex-50">
+          <form.input
+            @label="App name"
+            @value={{this.app.name}}
+            @onChange={{action (mut this.app.name)}}
+           />
+
+        </div>
+      </div>
+      <div class="layout-row">
+        <PaperSwitch
+          @value={{not this.app.requireManualActivation}}
+          @onChange={{action this.toggleAutoActivate}}
+        >
+          Automatically activate new deploys
+        </PaperSwitch>
+      </div>
+      <div class="layout-row">
+        <PaperButton
+          @raised={{true}}
+          @accent={{true}}
+          @disabled={{not this.app.name}}
+          @onClick={{perform this.create}}
+        >
+          {{#if this.create.isRunning}}
+            <PaperIcon @icon="autorenew" @spin={{true}} />
+          {{else}}
+            <PaperIcon @icon="save" />
+          {{/if}}
+          Create
+        </PaperButton>
+        <PaperButton @onClick={{action this.cancel}}>
+          Cancel
+        </PaperButton>
+      </div>
+    </PaperForm>
+  </card.content>
+</PaperCard>
