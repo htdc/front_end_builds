@@ -48,6 +48,8 @@
     "ember-cli-typescript": "^2.0.1",
     "ember-cli-typescript-blueprints": "^2.0.0",
     "ember-cli-uglify": "^2.1.0",
+    "ember-concurrency": "^1.0.0",
+    "ember-concurrency-decorators": "^1.0.0-beta.4",
     "ember-css-modules": "^1.2.0",
     "ember-css-modules-reporter": "^1.2.0",
     "ember-css-modules-sass": "^1.0.1",

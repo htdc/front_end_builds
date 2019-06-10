@@ -787,6 +787,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@ember-decorators/utils@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/utils/-/utils-6.0.0.tgz#94ac94ce03b607fc0d2d6a058b9a27e20735ec8e"
+  integrity sha512-moW4Oa7X1CN15LvjHlJVuwI4PpwTjXTPHPCCJll+a0X1sowQhObcLRykn6OMwdm9naCROGnRmcwpVqnE0eFjBg==
+  dependencies:
+    ember-cli-babel "^7.1.3"
+
 "@ember/optional-features@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@ember/optional-features/-/optional-features-0.7.0.tgz#f65a858007020ddfb8342f586112750c32abd2d9"
@@ -4477,7 +4484,7 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-be
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.2.0, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.2.0, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.0, ember-cli-babel@^7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.7.3.tgz#f94709f6727583d18685ca6773a995877b87b8a0"
   integrity sha512-/LWwyKIoSlZQ7k52P+6agC7AhcOBqPJ5C2u27qXHVVxKvCtg6ahNuRk/KmfZmV4zkuw4EjTZxfJE1PzpFyHkXg==
@@ -4894,10 +4901,29 @@ ember-composability-tools@^0.0.11:
     ember-cli-htmlbars "^3.0.0"
     ember-in-element-polyfill "^0.1.3"
 
+ember-concurrency-decorators@^1.0.0-beta.4:
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/ember-concurrency-decorators/-/ember-concurrency-decorators-1.0.0-beta.4.tgz#3c17ce93c12eca5d31b705359c165962670b6a82"
+  integrity sha512-i5a8xIqhqSfAWlRyuFLo1aey9vxvt9EFDK1zsd1ztngg2tNQ2k3G9eSOPWgiUYE8T07q/UQ1+qf1xJSqnT74ww==
+  dependencies:
+    "@ember-decorators/utils" "^6.0.0"
+    ember-cli-babel "^7.7.3"
+    ember-cli-typescript "^2.0.1"
+
 "ember-concurrency@^0.8.27 || ^0.9.0 || ^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.10.0.tgz#9c7c79dca411e01466119f02d7197c0a4ff0df08"
   integrity sha512-KhNNkUqnAN0isuAwSHaTJtmY/MdHJogSSAj7lCigzfJn2+21yafQcwzoVqf5LdMOn2+owWYURr1YiwzuOvlGyQ==
+  dependencies:
+    babel-core "^6.24.1"
+    ember-cli-babel "^6.8.2"
+    ember-compatibility-helpers "^1.2.0"
+    ember-maybe-import-regenerator "^0.1.5"
+
+ember-concurrency@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-1.0.0.tgz#3b650672fdd5dc1d45007626119135829076c2b6"
+  integrity sha512-76aKC0lo2LAPoQYz7vMRlpolWTIQerszr8PPf3JMM5cTOzPwXUtzDcjfso3JAEDdhyUF9fkv2V1DmHagFbC2YQ==
   dependencies:
     babel-core "^6.24.1"
     ember-cli-babel "^6.8.2"
