@@ -5,7 +5,7 @@
   </LinkTo>
 </div>
 <div class="layout-row flex layout-wrap layout-align-center-center">
-  {{#each @apps as |app|}}
+  {{#each this.sortedApps as |app|}}
     <AppCard @app={{app}} />
   {{/each}}
 </div>
