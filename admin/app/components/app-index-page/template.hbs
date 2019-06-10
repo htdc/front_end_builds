@@ -1,0 +1,11 @@
+<div class="layout-row flex layout-align-end">
+  <LinkTo local-class="new-button" @route="apps.new" class="md-default-theme md-button md-accent md-raised md-ink-ripple">
+    <PaperIcon @icon="add" />
+    New App
+  </LinkTo>
+</div>
+<div class="layout-row flex layout-wrap layout-align-center-center">
+  {{#each @apps as |app|}}
+    <AppCard @app={{app}} />
+  {{/each}}
+</div>
