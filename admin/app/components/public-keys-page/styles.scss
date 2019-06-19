@@ -1,0 +1,66 @@
+.public-key-table {
+  width: 100vw;
+  table {
+    width: 100%;
+    border-spacing: 0;
+    thead {
+      tr {
+        height: 56px;
+        th {
+          font-size: 12px;
+          font-weight: 700;
+          padding: 0 24px;
+          vertical-align: middle;
+          text-align: left;
+          :global(&.md-active) {
+            md-icon {
+              visibility: visible;
+              opacity: 1;
+              :global(&.md-sort-icon) {
+                transition: transform 0.25s, opacity 0.25s;
+                :global(&.md-asc) {
+                  transform: rotate(0deg);
+                }
+                :global(&.md-desc) {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+          }
+          md-icon {
+            font-size: 20px;
+            height: 20px;
+            width: 20px;
+            line-height: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transform: rotate(180deg);
+          }
+          &:hover {
+            md-icon {
+              cursor: pointer;
+              opacity: 0.8;
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+      background-color: #fff;
+      tr {
+        height: 48px;
+        transition: background-color 0.2s;
+        &:hover {
+          background-color: #eeeeee;
+          cursor: pointer;
+        }
+        td {
+          border-top: 1px solid rgba(0, 0, 0, 0.12);
+          padding: 0 24px;
+        }
+      }
+    }
+  }
+}
