@@ -2,7 +2,7 @@ import Model from 'ember-data/model';
 import { belongsTo } from 'ember-data/relationships';
 import attr from 'ember-data/attr';
 import App from './app';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 
 export default class Build extends Model {
   @belongsTo('app', { inverse: 'builds' }) app!: App;
@@ -14,7 +14,8 @@ export default class Build extends Model {
 
   @computed('app.liveBuildId')
   get isLive() {
-    const liveBuild = this.app.liveBuild;
+    const app = get(this, 'app');
+    const liveBuild = get(app, 'liveBuild');
     if (!liveBuild) {
       return false;
     }
@@ -22,7 +23,7 @@ export default class Build extends Model {
   }
 
   activate() {
-    throw "Not implemented";
+    throw 'Not implemented';
   }
 
   @computed('sha')
@@ -32,7 +33,8 @@ export default class Build extends Model {
 
   @computed('app.location', 'isLive', 'id')
   get location() {
-    const base = this.app.location;
+    const app = get(this, 'app');
+    const base = get(app, 'location');
     return this.isLive ? base : `${base}?id=${this.id}`;
   }
 }

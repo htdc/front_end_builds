@@ -36,7 +36,13 @@
               {{format-date build.createdAt}}
             </row.cell>
             <row.cell>
-              Launch...
+              <PaperButton
+                @iconButton={{true}}
+                @href={{build.location}}
+                @target="_blank _noreferrer _noopener"
+              >
+                <PaperIcon @icon="open_in_new" />
+              </PaperButton>
             </row.cell>
             <row.cell>
               Activate
