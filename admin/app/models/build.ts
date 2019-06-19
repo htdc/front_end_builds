@@ -12,14 +12,14 @@ export default class Build extends Model {
   @attr('string') branch!: string;
   @attr('date') createdAt!: Date;
 
-  @computed('app.liveBuildId')
+  @computed('app.liveBuildId', 'app.liveBuild')
   get isLive() {
     const app = get(this, 'app');
     const liveBuild = get(app, 'liveBuild');
     if (!liveBuild) {
       return false;
     }
-    return this.id === liveBuild.get('id');
+    return this.id === get(liveBuild!, 'id');
   }
 
   activate() {
