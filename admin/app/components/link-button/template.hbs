@@ -1,0 +1,14 @@
+<LinkTo
+  class="padded-icon-button"
+  @route={{@route}}
+  class="md-default-theme md-button md-accent md-raised md-ink-ripple"
+>
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{#if @icon}}
+      <PaperIcon @icon={{@icon}} />
+    {{/if}}
+    {{@text}}
+  {{/if}}
+</LinkTo>
