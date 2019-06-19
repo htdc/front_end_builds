@@ -24,6 +24,7 @@ export default function() {
   */
   this.get('apps');
   this.get('public_keys');
+  this.del('public_keys/:id');
   this.post('apps');
   this.get('apps/:id');
   this.get('host_apps/:id', function(schema) {
