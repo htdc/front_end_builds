@@ -3,6 +3,7 @@
     <PaperInput
       @label="Name"
       @icon="person"
+      @block={{true}}
       @value={{this.publicKey.name}}
       @onChange={{action (mut this.publicKey.name)}}
      />
@@ -12,7 +13,7 @@
       @icon="vpn_key"
       @value={{this.publicKey.pubKey}}
       @textarea={{true}}
-      @block="true"
+      @block={{true}}
       @passThru={{hash rows=5 maxRows=5}}
       @onChange={{action (mut this.publicKey.pubKey)}}
      />
@@ -33,7 +34,7 @@
       Create
     </PaperButton>
     <PaperButton
-      @onClick={{perform cancel}}
+      @onClick={{action cancel}}
     >
       Cancel
     </PaperButton>
