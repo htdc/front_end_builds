@@ -52,8 +52,8 @@
       tr {
         height: 48px;
         transition: background-color 0.2s;
-        &:hover {
-          background-color: #eeeeee;
+        &:hover:not(.green) {
+          background-color: #c7c7c7;
           cursor: pointer;
         }
         td {
@@ -63,4 +63,8 @@
       }
     }
   }
+}
+
+.green {
+  background-color: #a4cb72;
 }

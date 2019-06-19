@@ -25,7 +25,7 @@
       </table.head>
       <table.body as |body|>
         {{#each this.sortedBuilds as |build|}}
-          <body.row as |row|>
+          <body.row class={{if build.isLive (local-class 'green')}} as |row|>
             <row.cell>
               {{build.sha}}
             </row.cell>
