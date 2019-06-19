@@ -1,0 +1,16 @@
+<PaperButton
+  @raised={{true}}
+  @onClick={{perform activate}}
+  local-class="{{this.buttonClass}}"
+  @disabled={{@build.isLive}}
+>
+  {{#if (and @build.isLive (not @build.app.isSaving))}}
+    Live
+  {{else}}
+    {{#if this.activate.isRunning}}
+      <PaperIcon @icon="autorenew" @spin={{true}} />
+    {{else}}
+      Activate
+    {{/if}}
+  {{/if}}
+</PaperButton>
