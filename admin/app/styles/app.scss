@@ -14,3 +14,7 @@ md-icon {
   min-height: 0;
   min-width: 0;
 }
+
+:global(.padded-icon-button) {
+  padding: 0 20px;
+}
