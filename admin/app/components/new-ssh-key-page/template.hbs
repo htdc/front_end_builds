@@ -1,0 +1,41 @@
+<PaperCard as |card|>
+  <card.content>
+    <PaperInput
+      @label="Name"
+      @icon="person"
+      @value={{this.publicKey.name}}
+      @onChange={{action (mut this.publicKey.name)}}
+     />
+
+    <PaperInput
+      @label="Public Key"
+      @icon="vpn_key"
+      @value={{this.publicKey.pubKey}}
+      @textarea={{true}}
+      @block="true"
+      @passThru={{hash rows=5 maxRows=5}}
+      @onChange={{action (mut this.publicKey.pubKey)}}
+     />
+
+  </card.content>
+  <card.actions
+    local-class="action-row"
+    @class="layout-row layout-align-start-center"
+  >
+    <PaperButton
+      class="padded-icon-button"
+      @accent={{true}}
+      @raised={{true}}
+      @disabled={{or (not this.publicKey.pubKey) (not this.publicKey.name)}}
+      @onClick={{perform create}}
+    >
+      <PaperIcon @icon="add" />
+      Create
+    </PaperButton>
+    <PaperButton
+      @onClick={{perform cancel}}
+    >
+      Cancel
+    </PaperButton>
+  </card.actions>
+</PaperCard>
