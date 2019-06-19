@@ -1,0 +1,13 @@
+<PaperButton
+  local-class="delete-button"
+  class="padded-icon-button"
+  @raised={{true}}
+  @warn={{true}}
+  @onClick={{perform deleteKey @target}}
+>
+  {{#if this.deleteKey.isRunning}}
+    <PaperIcon @icon="autorenew" @spin={{true}} />
+  {{else}}
+    <PaperIcon @icon="delete_forever" />Delete
+  {{/if}}
+</PaperButton>
