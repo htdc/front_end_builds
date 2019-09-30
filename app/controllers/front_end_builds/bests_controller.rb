@@ -52,7 +52,7 @@ module FrontEndBuilds
     end
 
     def build_search_params
-      params.permit(:app_name, :id, :branch, :sha, :job)
+      params.permit(:app_name, :id, :branch, :sha, :job, :company)
     end
   end
 end

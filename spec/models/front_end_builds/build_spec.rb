@@ -72,8 +72,22 @@ module FrontEndBuilds
             created_at: 2.days.ago
         end
 
-        subject { Build.find_best(app: app, branch: 'master') }
-        it { should eq(latest) }
+        context 'via the branch name' do
+          subject { Build.find_best(app: app, branch: 'master') }
+          it { should eq(latest) }
+        end
+
+        context "via a company" do
+          before(:each) do
+            create :front_end_builds_company,
+              app: app,
+              name: 'microcorp',
+              branch: 'master'
+          end
+
+          subject { Build.find_best(app: app, company: 'microcorp') }
+          it { should eq(latest) }
+        end
       end
 
       context "when finding the job" do
