@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20150224040537) do
   add_index "front_end_builds_builds", ["created_at"], name: "index_front_end_builds_builds_on_created_at"
   add_index "front_end_builds_builds", ["fetched"], name: "index_front_end_builds_builds_on_fetched"
 
+  create_table "front_end_builds_companies", force: :cascade do |t|
+    t.integer  "app_id",     null: false
+    t.string   "name",       null: false
+    t.string   "branch",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id", "name"], name: "index_front_end_builds_companies_on_app_id_and_name", unique: true
+    t.index ["app_id"], name: "index_front_end_builds_companies_on_app_id"
+  end
+
   create_table "front_end_builds_pubkeys", force: :cascade do |t|
     t.string   "name",       limit: 191, null: false
     t.text     "pubkey",                 null: false

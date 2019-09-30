@@ -48,6 +48,10 @@ module FrontEndBuilds
       elsif params[:job]
         query[:job] = params[:job]
 
+      elsif params[:company]
+        company = FrontEndBuilds::Company.where( app_id: app.id, name: params[:company] ).first
+        query[:branch] = company&.branch
+
       elsif params[:branch]
         query[:branch] = params[:branch]
 

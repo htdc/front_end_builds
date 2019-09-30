@@ -62,6 +62,21 @@ module FrontEndBuilds
         expect(response.body).to match(latest.html)
       end
 
+      context 'with a company' do
+        before(:each) do
+          create :front_end_builds_company,
+            app: app,
+            name: 'microcorp',
+            branch: 'master'
+        end
+
+        it "should find the build by company" do
+          get :show, params: { app_name: app.name, company: 'microcorp' }
+          expect(response).to be_success
+          expect(response.body).to match(latest.html)
+        end
+      end
+
       context "meta tags" do
         before(:each) do
           get :show, params: { app_name: app.name, branch: 'master' }
