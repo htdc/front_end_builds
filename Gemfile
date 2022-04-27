@@ -13,7 +13,7 @@ else
   "~> #{rails_version}"
 end
 
-gem 'rails', rails
+gem 'rails', '>= 5.2.7.1', rails
 
 # These no longer ship with ruby 2.2.0, but are needed for
 # Rails 3 and 4.0.0
