@@ -8,16 +8,16 @@ rails = case rails_version
 when 'master'
   { :github => 'rails/rails'}
 when 'default'
-  '~> 4.2.0'
+  '~> 6'
 else
   "~> #{rails_version}"
 end
 
 gem 'rails', rails
 
-# These no longer ship with ruby 2.2.0, but are needed for
-# Rails 3 and 4.0.0
-if RUBY_VERSION == "2.2.0"
-  gem 'test-unit'
-  gem 'minitest'
+gem 'bigdecimal', '1.4.2'
+
+ # these are here so travis will work
+group :test, :development do
+  gem 'sqlite3'
 end

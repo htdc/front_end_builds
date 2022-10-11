@@ -1,5 +1,32 @@
 # What's new
 
+### 1.0.5 (May 11, 2020)
+* Version 1.0.5 may be used with Rails version 6 only.
+* Update rspec syntax to work with more modern versions
+* Bump Ruby version to 2.7.5
+
+### 1.0.4 (May 11, 2021)
+* changed rails dependency to '>= 5.0'
+
+### 1.0.3 (November 19th, 2020)
+* remove crossdomain.xml see https://www.openbugbounty.org/reports/1519953/
+
+### 1.0.2 (January 9th, 2020)
+* This version fixes a bug with FrontEndBuilds::AppsController#index where it would not show the `/frontends`.
+ - This bug was introduced in 1.0.0 (rails 5 updates).
+ - The controller should return "10 builds for each app", instead it was
+   returning "10 builds for all apps". This and issue when one of your apps has
+   a really old "live build" that is older than your 10 most recent (for any app)
+
+### 1.0.1 (May 6th, 2019)
+* `FrontEndBuilds::App.live_build` is now optional. This resolves issues with  Rails 5 clients that have `Rails.application.config.active_record.belongs_to_required_by_default` enabled.
+
+### 1.0.0 (January 31, 2019)
+* Support for Rails 5
+* Dropping support for < Rails 5
+* Support for OpenSSL Ver 2
+* If a user uses a key that is not RSA an exception will now be raised
+
 ## Upgrading
 
 To upgrade ``front_end_builds`` just set the appropriate version in your
@@ -23,6 +50,3 @@ Check the log below to see all the new features.
   to verify the build. To set this up login to your admin area and add a
   public key, for example your SSH pubkey. Make sure you update your
   ``ember-cli-front-end-builds`` to use version `0.1.0` as well.
-
-
-
