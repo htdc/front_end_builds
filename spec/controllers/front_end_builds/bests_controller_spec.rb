@@ -40,25 +40,25 @@ module FrontEndBuilds
 
       it "should find the live build" do
         get :show, params: { app_name: app.name }
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(response.body).to match(live.html)
       end
 
       it "should find the build by job" do
         get :show, params: { app_name: app.name, job: 'number3' }
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(response.body).to match(older.html)
       end
 
       it "should find the build by build_id" do
         get :show, params: { id: older.id }
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(response.body).to match(older.html)
       end
 
       it "should find the build by branch" do
         get :show, params: { app_name: app.name, branch: 'master' }
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(response.body).to match(latest.html)
       end
 
@@ -72,7 +72,7 @@ module FrontEndBuilds
 
         it "should find the build by company" do
           get :show, params: { app_name: app.name, company: 'microcorp' }
-          expect(response).to be_success
+          expect(response.successful?).to be true
           expect(response.body).to match(latest.html)
         end
       end
@@ -80,7 +80,7 @@ module FrontEndBuilds
       context "meta tags" do
         before(:each) do
           get :show, params: { app_name: app.name, branch: 'master' }
-          expect(response).to be_success
+          expect(response.successful?).to be true
         end
 
         subject { response.body }
@@ -93,7 +93,7 @@ module FrontEndBuilds
 
       it "should be 404 when nothing is found" do
         get :show, params: { app_name: 'does-not-exist', branch: 'master' }
-        expect(response).to_not be_success
+        expect(response.successful?).to_not be true
         expect(response.status).to eq(404)
       end
 

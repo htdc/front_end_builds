@@ -12,7 +12,7 @@ module FrontEndBuilds
       it "should find all apps" do
         get :index, format: :json
 
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(json['apps'].length).to eq(1)
         expect(json['builds'].length).to eq(3)
       end
@@ -25,7 +25,7 @@ module FrontEndBuilds
 
       it "should include the live build even it's not most recent" do
         get :index, format: :json
-        
+
         expect(json['builds'].map { | a | a['id'] }).to include(live_build.id)
       end
     end
@@ -34,7 +34,7 @@ module FrontEndBuilds
       it "should find the requested app" do
         get :show, params: { id: app.id }, format: :json
 
-        expect(response).to be_success
+        expect(response.successful?).to be true
         expect(json['app']['id']).to eq(app.id)
         expect(json['builds'].length).to eq(3)
         expect(json['app']['live_build_id']).to eq(app.live_build.id)
@@ -50,7 +50,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response).to be_success
+        expect(response.successful?).to be true
 
         app = FrontEndBuilds::App.where(name: 'my-new-app').limit(1).first
         expect(json['app']['id']).to eq(app.id)
@@ -73,7 +73,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response).to be_success
+        expect(response.successful?).to be true
 
         app.reload
 
@@ -86,11 +86,13 @@ module FrontEndBuilds
         allow(ENV).to receive(:[]).with("FRONT_END_BUILDS_PRODUCTION_BRANCH").and_return("production")
 
         post :update,
-             id: app.id,
-             app: {
-               live_build_id: prohibited_build.id
-             },
-             format: :json
+          params: {
+            id: app.id,
+            app: {
+              live_build_id: prohibited_build.id
+            }
+          },
+          format: :json
 
         body = JSON.parse(response.body)
         expect(response.status).to be(422)
@@ -112,12 +114,12 @@ module FrontEndBuilds
 
         context 'the response' do
           subject { response }
-          it { should be_success }
+          it { expect(subject.successful?).to be true }
         end
 
         context 'the data' do
           subject { json['app']['id'] }
-          it { should_not be_nil }
+          it { expect(subject).not_to be nil }
         end
 
         context 'the record' do

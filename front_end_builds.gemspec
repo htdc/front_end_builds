@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   # for ssh key bits, but it doesn't support OpenSSL v2.x
 
   # sort this by alpha
+  s.add_development_dependency 'bundler', '>=1.15.0'
   s.add_development_dependency 'bundler-audit'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'database_cleaner'
@@ -36,7 +37,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'rubocop-rspec'
   s.add_development_dependency 'shoulda-matchers', '2.7.0'
+  # These 2 are needed so that the rails app version matches
+  # otherwise bundle gives you sprockets 4
+  s.add_development_dependency 'sprockets', '3.7.2'
+  s.add_development_dependency 'sprockets-rails', '3.2.1'
   s.add_development_dependency "sqlite3"
   s.add_development_dependency 'webmock'
-  s.add_development_dependency 'guard-rspec'
 end
