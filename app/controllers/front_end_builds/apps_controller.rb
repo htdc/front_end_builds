@@ -2,10 +2,15 @@ require_dependency "front_end_builds/application_controller"
 
 module FrontEndBuilds
   class AppsController < ApplicationController
-    before_filter :set_app , :only => [:show, :destroy, :update]
+    before_action :set_app , :only => [:show, :destroy, :update]
 
     def index
-      apps = App.includes(:recent_builds)
+      # this should be the most recent 10 builds for each app
+
+      # DO NOT use `App.includes(:recent_builds)`
+      # b/c it mucks up the grouping logic and only gives the most
+      # recent 10 for ALL apps not 10 per app
+      apps = App.all
 
       respond_with_json({
         apps: apps.map(&:serialize),
@@ -23,7 +28,7 @@ module FrontEndBuilds
     end
 
     def create
-      @app = FrontEndBuilds::App.new( use_params(:app_create_params) )
+      @app = FrontEndBuilds::App.new( app_create_params )
 
       if @app.save
         respond_with_json(
@@ -39,7 +44,7 @@ module FrontEndBuilds
     end
 
     def update
-      if @app.update_attributes( use_params(:app_update_params) )
+      if @app.update( app_update_params )
 
         respond_with_json(
           { app: @app.serialize },
@@ -61,7 +66,7 @@ module FrontEndBuilds
         )
       else
         respond_with_json(
-          {errors: @app.errors},
+          { errors: @app.errors },
           status: :unprocessable_entity
         )
       end
@@ -73,31 +78,18 @@ module FrontEndBuilds
       @app = FrontEndBuilds::App.find(params[:id])
     end
 
-    def app_create_params_rails_3
-      params[:app].slice(:name)
-    end
-
-    def app_create_params_rails_4
+    def app_create_params
       params.require(:app).permit(
         :name
       )
     end
 
-    def app_update_params_rails_3
-      params[:app].slice(
-        :name,
-        :require_manual_activation,
-        :live_build_id
-      )
-    end
-
-    def app_update_params_rails_4
+    def app_update_params
       params.require(:app).permit(
         :name,
         :require_manual_activation,
         :live_build_id
       )
     end
-
   end
 end
