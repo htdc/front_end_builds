@@ -45,6 +45,8 @@ module FrontEndBuilds
     #
     # Returns boolean
     def verify(build)
+      return false if build.signature.nil?
+
       # TODO might as well cache this and store in the db so we dont have to
       # convert every time
       pkey = to_rsa_pkey
