@@ -7,6 +7,7 @@ require 'rspec/its'
 require 'factory_bot_rails'
 require 'shoulda/matchers'
 require 'webmock/rspec'
+require 'database_cleaner/active_record'
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -24,4 +25,15 @@ RSpec.configure do |config|
   config.include JsonParser, type: :controller
   config.include JsonParser, type: :request
   config.include CreateSignature
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around do |example|
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 end

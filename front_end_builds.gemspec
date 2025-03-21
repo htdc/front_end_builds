@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'shoulda-matchers', '6.2.0'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'rexml'
+  s.add_development_dependency 'database_cleaner-active_record'
 end
