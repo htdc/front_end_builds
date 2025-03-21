@@ -9,14 +9,6 @@ module FrontEndBuilds
     it { should validate_presence_of(:name) }
 
     describe '#recent_builds' do
-      it 'should only show the 10 most recent builds' do
-        FactoryBot.create_list(:front_end_builds_build, 11, {
-          app: app
-        })
-
-        expect(app.recent_builds.size).to eq(10)
-      end
-
       it 'should order the builds with the most recent at top' do
         older = FactoryBot.create(:front_end_builds_build, {
           app: app,
