@@ -124,6 +124,11 @@ module FrontEndBuilds
 
         expect(pubkey.verify(build)).to be_falsey
       end
+
+      it 'should not verify a missing signature for a build' do
+        build.signature = nil
+        expect(pubkey.verify(build)).to be_falsey
+      end
     end
 
     describe '#last_build' do
