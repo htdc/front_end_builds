@@ -10,7 +10,7 @@ module FrontEndBuilds
       it 'should list all pubkeys' do
         get :index, format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
         expect(json['pubkeys'].size).to eq(3)
       end
     end
@@ -26,7 +26,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
 
         key = FrontEndBuilds::Pubkey
           .where(name: 'my-new-key')
@@ -45,7 +45,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response.successful?).to_not be true
+        expect(response).to_not have_http_status :success
         expect(json['errors']['pubkey'].size).to eq(1)
       end
     end
@@ -54,9 +54,9 @@ module FrontEndBuilds
       let(:pubkey) { create(:front_end_builds_pubkey) }
 
       it 'should remove a pubkey' do
-        delete :destroy, params: { id: pubkey.id }, format: :json
+        delete :destroy, params: {id: pubkey.id}, format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
 
         lookup_pubkey = FrontEndBuilds::Pubkey
           .where(id: pubkey.id)

@@ -12,7 +12,7 @@ module FrontEndBuilds
       it "should find all apps" do
         get :index, format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
         expect(json['apps'].length).to eq(1)
         expect(json['builds'].length).to eq(3)
       end
@@ -32,9 +32,9 @@ module FrontEndBuilds
 
     describe 'show' do
       it "should find the requested app" do
-        get :show, params: { id: app.id }, format: :json
+        get :show, params: {id: app.id}, format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
         expect(json['app']['id']).to eq(app.id)
         expect(json['builds'].length).to eq(3)
         expect(json['app']['live_build_id']).to eq(app.live_build.id)
@@ -50,7 +50,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
 
         app = FrontEndBuilds::App.where(name: 'my-new-app').limit(1).first
         expect(json['app']['id']).to eq(app.id)
@@ -73,7 +73,7 @@ module FrontEndBuilds
           },
           format: :json
 
-        expect(response.successful?).to be true
+        expect(response).to have_http_status :success
 
         app.reload
 
@@ -106,15 +106,13 @@ module FrontEndBuilds
       context 'a valid app' do
         before(:each) do
           post :destroy,
-            params: {
-              id: deletable_app.id
-            },
+            params: {id: deletable_app.id},
             format: :json
         end
 
         context 'the response' do
           subject { response }
-          it { expect(subject.successful?).to be true }
+          it { should have_http_status :success }
         end
 
         context 'the data' do

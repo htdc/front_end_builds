@@ -12,40 +12,38 @@ describe "Front end builds API", type: :request do
   end
 
   it "creates a new build and then uses it" do
-    post "/dummy",
-      params: {
-        branch: "master",
-        sha: "a1b2c3",
-        job: "jenkins-build-1",
-        endpoint: endpoint,
-        signature: create_signature("dummy-#{endpoint}")
-      }
+    post "/dummy", params: {
+      branch: "master",
+      sha: "a1b2c3",
+      job: "jenkins-build-1",
+      endpoint: endpoint,
+      signature: create_signature("dummy-#{endpoint}")
+    }
 
-    expect(response.successful?).to be true
+    expect(response).to have_http_status :success
 
     # Index loads
     get "/dummy"
-    expect(response.successful?).to be true
+    expect(response).to have_http_status :success
     expect(response.body).to match(/your app!$/)
 
     # Deep routes load
     get "/dummy/posts/1"
-    expect(response.successful?).to be true
+    expect(response).to have_http_status :success
     expect(response.body).to match(/your app!$/)
   end
 
   it "should be able to create a build from a generic endpoint" do
-    post "/front_end_builds/builds",
-      params: {
-        app_name: 'dummy',
-        branch: "master",
-        sha: "a1b2c3",
-        job: "jenkins-build-1",
-        endpoint: endpoint,
-        signature: create_signature("dummy-#{endpoint}")
-      }
+    post "/front_end_builds/builds", params: {
+      app_name: 'dummy',
+      branch: "master",
+      sha: "a1b2c3",
+      job: "jenkins-build-1",
+      endpoint: endpoint,
+      signature: create_signature("dummy-#{endpoint}")
+    }
 
-    expect(response.successful?).to be true
+    expect(response).to have_http_status :success
     expect(front_end_app.builds.length).to eq(1)
     expect(front_end_app.builds.first.html).to eq('your app!')
   end
