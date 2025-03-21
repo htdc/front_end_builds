@@ -37,7 +37,7 @@ module FrontEndBuilds
       build = FrontEndBuilds::Build.find(app.live_build_id)
       production_branch = ENV["FRONT_END_BUILDS_PRODUCTION_BRANCH"]
       if production_branch != build.branch
-        app.errors[:validations] << "Cannot activate build - build is from branch: #{build.branch}, but deploys are restricted to branch: #{production_branch}"
+        errors.add(:validations, "Cannot activate build - build is from branch: #{build.branch}, but deploys are restricted to branch: #{production_branch}")
       end
     end
 

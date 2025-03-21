@@ -2,7 +2,7 @@ require_dependency "front_end_builds/application_controller"
 
 module FrontEndBuilds
   class AppsController < ApplicationController
-    before_filter :set_app , :only => [:show, :destroy, :update]
+    before_action :set_app , :only => [:show, :destroy, :update]
 
     def index
       apps = App.includes(:recent_builds)
@@ -39,7 +39,7 @@ module FrontEndBuilds
     end
 
     def update
-      if @app.update_attributes( use_params(:app_update_params) )
+      if @app.update( use_params(:app_update_params) )
 
         respond_with_json(
           { app: @app.serialize },
@@ -82,6 +82,7 @@ module FrontEndBuilds
         :name
       )
     end
+    alias_method :app_create_params_rails_7, :app_create_params_rails_4
 
     def app_update_params_rails_3
       params[:app].slice(
@@ -98,6 +99,7 @@ module FrontEndBuilds
         :live_build_id
       )
     end
+    alias_method :app_update_params_rails_7, :app_update_params_rails_4
 
   end
 end

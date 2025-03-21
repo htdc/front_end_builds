@@ -10,7 +10,7 @@ module FrontEndBuilds
       it 'should list all pubkeys' do
         get :index, format: :json
 
-        expect(response).to be_success
+        expect(response).to have_http_status :success
         expect(json['pubkeys'].size).to eq(3)
       end
     end
@@ -18,13 +18,15 @@ module FrontEndBuilds
     describe 'create' do
       it 'should create a new pubkey' do
         post :create,
-          pubkey: {
-            name: 'my-new-key',
-            pubkey: 'asdfasdf'
+          params: {
+            pubkey: {
+              name: 'my-new-key',
+              pubkey: 'asdfasdf'
+            }
           },
           format: :json
 
-        expect(response).to be_success
+        expect(response).to have_http_status :success
 
         key = FrontEndBuilds::Pubkey
           .where(name: 'my-new-key')
@@ -36,12 +38,14 @@ module FrontEndBuilds
 
       it 'should not create a new pubkey without a pubkey' do
         post :create,
-          pubkey: {
-            name: 'my-new-key'
+          params: {
+            pubkey: {
+              name: 'my-new-key'
+            }
           },
           format: :json
 
-        expect(response).to_not be_success
+        expect(response).to_not have_http_status :success
         expect(json['errors']['pubkey'].size).to eq(1)
       end
     end
@@ -50,9 +54,9 @@ module FrontEndBuilds
       let(:pubkey) { FactoryBot.create(:front_end_builds_pubkey) }
 
       it 'should remove a pubkey' do
-        delete :destroy, id: pubkey.id, format: :json
+        delete :destroy, params: {id: pubkey.id}, format: :json
 
-        expect(response).to be_success
+        expect(response).to have_http_status :success
 
         lookup_pubkey = FrontEndBuilds::Pubkey
           .where(id: pubkey.id)

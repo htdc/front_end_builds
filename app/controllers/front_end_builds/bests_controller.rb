@@ -11,17 +11,17 @@ module FrontEndBuilds
   class BestsController < ApplicationController
     include Rails.application.routes.url_helpers
 
-    before_filter :find_front_end, only: [:show]
+    before_action :find_front_end, only: [:show]
 
     def show
       if @front_end
         respond_to do |format|
-          format.html { render text: @front_end.with_head_tag(meta_tags) }
+          format.html { render plain: @front_end.with_head_tag(meta_tags) }
           format.json { render json: { version: @front_end.id } }
         end
       else
         # TODO install instructions, user needs to push build
-        render text: "not found", status: 404
+        render plain: "not found", status: 404
       end
     end
 
@@ -58,5 +58,6 @@ module FrontEndBuilds
     def build_search_params_rails_4
       params.permit(:app_name, :id, :branch, :sha, :job)
     end
+    alias_method :build_search_params_rails_7, :build_search_params_rails_4
   end
 end
