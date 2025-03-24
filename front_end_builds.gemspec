@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'rubocop-rspec'
-  s.add_development_dependency 'shoulda-matchers', '2.7.0'
+  s.add_development_dependency 'shoulda-matchers', '6.2.0'
   # These 2 are needed so that the rails app version matches
   # otherwise bundle gives you sprockets 4
   s.add_development_dependency 'sprockets', '3.7.2'

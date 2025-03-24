@@ -5,13 +5,13 @@ gemspec
 rails_version = ENV['RAILS_VERSION'] || 'default'
 
 rails = case rails_version
-        when 'master'
-          { github: 'rails/rails' }
-        when 'default'
-          '~> 6.0.5.1'
-        else
-          "~> #{rails_version}"
-        end
+when 'master'
+  { :github => 'rails/rails'}
+when 'default'
+  '~> 7.1.0'
+else
+  "~> #{rails_version}"
+end
 
 gem 'rails', rails
 

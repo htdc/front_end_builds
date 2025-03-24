@@ -94,27 +94,6 @@ Rails.application.routes.draw do
 end
 ```
 
-At this point you should be able to test the setup in dev by running
-
-```
-bin/rails server
-```
-
-Visit `/frontends` to access the Admin interface, and visit the `front_end` route, which will initially return 404 Not found since you haven't configured and deployed any front-end builds yet.
-
-## A note on SSH Keys
-At this time only RSA keys are supported for authentication.
-
-### Example Next Steps with Heroku and Ember.js
-
-A common configuration is to deploy your FEB-enabled Rails app to Heroku, and deploy your Ember.js frontend to S3:
-
-1. Deploy your Rails app to Heroku
-2. Configure your frontend app with [ember-cli-deploy-front-end-builds-pack](https://github.com/tedconf/ember-cli-deploy-front-end-builds-pack)
-3. Access your Rails app's FEB Admin interface, add an app, and configure a public SSH key that corresponds to the private key you plan on using to sign your Ember.js builds
-4. Deploy your frontend app. If all goes well, it should build the Ember app, push the static assets to S3, then POST to your Rails app. You'll see the build in the Admin interface, and should be able to access your frontend at the `front_end` route you specified.
-
-
 ## Configurations Options
 
 Should you wish to allow deploys from an approved branch only, you may set the following environment variables
@@ -129,6 +108,7 @@ install:
 ```
 
 This basically just ensures that the branch name is available to `ember-cli-front-end-builds` to tag the deploy.
+
 
 ## Development
 
