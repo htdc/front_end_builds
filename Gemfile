@@ -10,7 +10,7 @@ rails = case rails_version
 when 'master'
   { :github => 'rails/rails'}
 when 'default'
-  '~> 7.2.0'
+  '~> 8.0.0'
 else
   "~> #{rails_version}"
 end
