@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+ruby '3.4.1'
+
 rails_version = ENV['RAILS_VERSION'] || 'default'
 
 rails = case rails_version
@@ -14,10 +16,3 @@ else
 end
 
 gem 'rails', rails
-
-gem 'bigdecimal', '1.4.2'
-
-# these are here so travis will work
-group :test, :development do
-  gem 'sqlite3', '1.4'
-end
