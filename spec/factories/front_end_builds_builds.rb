@@ -9,6 +9,7 @@ FactoryBot.define do
     signature { "some signature" }
     html { "hello world" }
     association :app, factory: :front_end_builds_app
+    association :pubkey, :fixture_pubkey, factory: :front_end_builds_pubkey
 
     trait :fetched do
       fetched { true }

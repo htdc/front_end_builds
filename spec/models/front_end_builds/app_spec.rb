@@ -5,7 +5,7 @@ module FrontEndBuilds
     let(:app) { create(:front_end_builds_app) }
 
     it { should have_many(:builds) }
-    it { should belong_to(:live_build) }
+    it { should belong_to(:live_build).optional }
     it { should validate_presence_of(:name) }
 
     describe '#recent_builds' do
