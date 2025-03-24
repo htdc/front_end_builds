@@ -11,12 +11,12 @@ describe 'It should not intercept API requests', type: :request do
 
   it "should get the build" do
     get "/dummy"
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
   end
 
   it "should allow api requests to come through" do
     get "/items/1.json"
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
     expect(JSON.parse(response.body)['it']).to eq('worked')
   end
 end

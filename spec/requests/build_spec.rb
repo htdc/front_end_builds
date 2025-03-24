@@ -20,16 +20,16 @@ describe "Front end builds API", type: :request do
       signature: create_signature("dummy-#{endpoint}")
     }
 
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
 
     # Index loads
     get "/dummy"
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
     expect(response.body).to match(/your app!$/)
 
     # Deep routes load
     get "/dummy/posts/1"
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
     expect(response.body).to match(/your app!$/)
   end
 
@@ -43,7 +43,7 @@ describe "Front end builds API", type: :request do
       signature: create_signature("dummy-#{endpoint}")
     }
 
-    expect(response).to have_http_status :success
+    expect(response.successful?).to be true
     expect(front_end_app.builds.length).to eq(1)
     expect(front_end_app.builds.first.html).to eq('your app!')
   end

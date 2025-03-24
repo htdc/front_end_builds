@@ -5,6 +5,15 @@ require "front_end_builds/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
+  # Prevent pushing this gem to RubyGems.org.
+  # allow pushing only to our private gem server.
+  if s.respond_to?(:metadata)
+    s.metadata['allowed_push_host'] = 'https://rubygems.ted.com/private'
+  else
+    raise 'RubyGems 2.0 or newer is required to protect against ' \
+      'public gem pushes.'
+  end
+
   s.name        = "front_end_builds"
   s.version     = FrontEndBuilds::VERSION
   s.authors     = ["Ryan Toronto", "Sam Selikoff", "John Hirbour"]
