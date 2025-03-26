@@ -6,7 +6,7 @@ module FrontEndBuilds
                       :live_build_id
     end
 
-    belongs_to :live_build, class_name: 'FrontEndBuilds::Build'
+    belongs_to :live_build, class_name: 'FrontEndBuilds::Build', optional: true
     has_many :builds, class_name: 'FrontEndBuilds::Build'
 
     if ActiveRecord::VERSION::MAJOR < 4
@@ -37,7 +37,7 @@ module FrontEndBuilds
       build = FrontEndBuilds::Build.find(app.live_build_id)
       production_branch = ENV["FRONT_END_BUILDS_PRODUCTION_BRANCH"]
       if production_branch != build.branch
-        app.errors[:validations] << "Cannot activate build - build is from branch: #{build.branch}, but deploys are restricted to branch: #{production_branch}"
+        errors.add(:validations, "Cannot activate build - build is from branch: #{build.branch}, but deploys are restricted to branch: #{production_branch}")
       end
     end
 

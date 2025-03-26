@@ -2,28 +2,28 @@ require 'rails_helper'
 
 module FrontEndBuilds
   describe App, :type => :model do
-    let(:app) { FactoryGirl.create(:front_end_builds_app) }
+    let(:app) { create(:front_end_builds_app) }
 
     it { should have_many(:builds) }
-    it { should belong_to(:live_build) }
+    it { should belong_to(:live_build).optional }
     it { should validate_presence_of(:name) }
 
     describe '#recent_builds' do
       it 'should only show the 10 most recent builds' do
-        FactoryGirl.create_list(:front_end_builds_build, 11, {
+        create_list(:front_end_builds_build, 51, {
           app: app
         })
 
-        expect(app.recent_builds.size).to eq(10)
+        expect(app.recent_builds.size).to eq(50)
       end
 
       it 'should order the builds with the most recent at top' do
-        older = FactoryGirl.create(:front_end_builds_build, {
+        older = create(:front_end_builds_build, {
           app: app,
           created_at: 2.days.ago
         })
 
-        recent = FactoryGirl.create(:front_end_builds_build, {
+        recent = create(:front_end_builds_build, {
           app: app,
           created_at: 1.day.ago
         })
@@ -47,7 +47,7 @@ module FrontEndBuilds
     describe '#get_url' do
       it 'should lookup the url in the Apps url hash' do
         App.register_url('testing', '/testing')
-        app = FactoryGirl.create(:front_end_builds_app, name: 'testing')
+        app = create(:front_end_builds_app, name: 'testing')
         expect(app.get_url).to eq('/testing')
       end
     end

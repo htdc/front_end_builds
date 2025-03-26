@@ -3,6 +3,9 @@
 #
 # https://github.com/mytestbed/omf/blob/master/omf_common/lib/omf_common/auth/ssh_pub_key_convert.rb
 #
+# Support for DSA keys was removed from this code as the FEB app doesn't support DSA keys
+# See PubKey#verify
+#
 
 module FrontEndBuilds
   module Utils
@@ -19,6 +22,9 @@ module FrontEndBuilds
     # received messages.  (DSA support pending).
     #
     class SSHPubKeyConvert
+      RSA_OPT_PARAMS    = %i[p q dp dq qi].freeze
+      RSA_ASN1_SEQUENCE = (%i[n e d] + RSA_OPT_PARAMS).freeze # https://www.rfc-editor.org/rfc/rfc3447#appendix-A.1.2
+
       # Unpack a 4-byte unsigned integer from the +bytes+ array.
       #
       # Returns a pair (+u32+, +bytes+), where +u32+ is the extracted
@@ -65,35 +71,73 @@ module FrontEndBuilds
           (n, bytes) = unpack_u32(bytes)
           (nstr, bytes) = unpack_string(bytes, n)
 
-          key = OpenSSL::PKey::RSA.new
-          n = OpenSSL::BN.new(nstr, 2)
-          e = OpenSSL::BN.new(estr, 2)
-          if key.respond_to? :set_key
-            key.set_key(n, e, nil)
-          else
-            key.n = n
-            key.e = e
-          end
-          key
-        elsif keytype == 'ssh-dss'
-          (n, bytes) = unpack_u32(bytes)
-          (pstr, bytes) = unpack_string(bytes, n)
-          (n, bytes) = unpack_u32(bytes)
-          (qstr, bytes) = unpack_string(bytes, n)
-          (n, bytes) = unpack_u32(bytes)
-          (gstr, bytes) = unpack_string(bytes, n)
-          (n, bytes) = unpack_u32(bytes)
-          (pkstr, bytes) = unpack_string(bytes, n)
+          rsa_params = { n: OpenSSL::BN.new(nstr, 2), e: OpenSSL::BN.new(estr, 2) }
 
-          key = OpenSSL::PKey::DSA.new
-          key.p = OpenSSL::BN.new(pstr, 2)
-          key.q = OpenSSL::BN.new(qstr, 2)
-          key.g = OpenSSL::BN.new(gstr, 2)
-          key.pub_key = OpenSSL::BN.new(pkstr, 2)
-          key
+          # support SSL 2
+          if Gem::Version.new(OpenSSL::VERSION) >= Gem::Version.new('3.0.0')
+            create_rsa_key_using_der(rsa_params)
+          elsif OpenSSL::PKey::RSA.new.respond_to?(:set_key)
+            create_rsa_key_using_sets(rsa_params)
+          else
+            create_rsa_key_using_accessors(rsa_params)
+          end
         else
-          nil
+          # anything non-RSA is not supported
+          # this part edited by TED
+          raise "Unsupported key type: #{keytype}"
         end
+      end
+
+      def self.create_rsa_key_using_der(rsa_parameters)
+        validate_rsa_parameters!(rsa_parameters)
+
+        sequence = RSA_ASN1_SEQUENCE.each_with_object([]) do |key, arr|
+          next if rsa_parameters[key].nil?
+
+          arr << OpenSSL::ASN1::Integer.new(rsa_parameters[key])
+        end
+
+        if sequence.size > 2 # Append "two-prime" version for private key
+          sequence.unshift(OpenSSL::ASN1::Integer.new(0))
+
+          raise JWT::JWKError, 'Creating a RSA key with a private key requires the CRT parameters to be defined' if sequence.size < RSA_ASN1_SEQUENCE.size
+        end
+
+        OpenSSL::PKey::RSA.new(OpenSSL::ASN1::Sequence(sequence).to_der)
+      end
+
+      def self.create_rsa_key_using_sets(rsa_parameters)
+        validate_rsa_parameters!(rsa_parameters)
+
+        OpenSSL::PKey::RSA.new.tap do |rsa_key|
+          rsa_key.set_key(rsa_parameters[:n], rsa_parameters[:e], rsa_parameters[:d])
+          rsa_key.set_factors(rsa_parameters[:p], rsa_parameters[:q]) if rsa_parameters[:p] && rsa_parameters[:q]
+          rsa_key.set_crt_params(rsa_parameters[:dp], rsa_parameters[:dq], rsa_parameters[:qi]) if rsa_parameters[:dp] && rsa_parameters[:dq] && rsa_parameters[:qi]
+        end
+      end
+
+      def self.create_rsa_key_using_accessors(rsa_parameters) # rubocop:disable Metrics/AbcSize
+        validate_rsa_parameters!(rsa_parameters)
+
+        OpenSSL::PKey::RSA.new.tap do |rsa_key|
+          rsa_key.n = rsa_parameters[:n]
+          rsa_key.e = rsa_parameters[:e]
+          rsa_key.d = rsa_parameters[:d] if rsa_parameters[:d]
+          rsa_key.p = rsa_parameters[:p] if rsa_parameters[:p]
+          rsa_key.q = rsa_parameters[:q] if rsa_parameters[:q]
+          rsa_key.dmp1 = rsa_parameters[:dp] if rsa_parameters[:dp]
+          rsa_key.dmq1 = rsa_parameters[:dq] if rsa_parameters[:dq]
+          rsa_key.iqmp = rsa_parameters[:qi] if rsa_parameters[:qi]
+        end
+      end
+
+      def self.validate_rsa_parameters!(rsa_parameters)
+        return unless rsa_parameters.key?(:d)
+
+        parameters = RSA_OPT_PARAMS - rsa_parameters.keys
+        return if parameters.empty? || parameters.size == RSA_OPT_PARAMS.size
+
+        raise 'When one of p, q, dp, dq or qi is given all the other optimization parameters also needs to be defined' # https://www.rfc-editor.org/rfc/rfc7518.html#section-6.3.2
       end
     end
   end
