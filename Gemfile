@@ -16,3 +16,9 @@ else
 end
 
 gem 'rails', rails
+
+gem 'activestorage', '>= 8.0.5.1'
+
+gem 'concurrent-ruby', '>= 1.3.7'
+
+gem 'nokogiri', '>= 1.18.9'
