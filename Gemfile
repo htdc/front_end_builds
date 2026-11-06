@@ -17,7 +17,7 @@ end
 
 gem 'rails', rails
 
-gem 'activestorage', '>= 8.0.5.1'
+gem 'activestorage', '>= 8.0.5.2'
 
 gem 'nokogiri', '>= 1.18.9'
 
