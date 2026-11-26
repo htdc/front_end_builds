@@ -22,3 +22,5 @@ gem 'activestorage', '>= 8.0.5.2'
 gem 'nokogiri', '>= 1.18.9'
 
 gem "concurrent-ruby", ">= 1.3.7"
+
+gem 'websocket-driver', '>= 0.9.0'
